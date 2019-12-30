@@ -61,16 +61,11 @@ spec:
       initContainers:
         - name: init-fs
           image: alpine:3.6
-          command:
-          - chown
-          - -R  
-          - 33000:1000
-          - {{ .Values.persistence.repository.data.mountPath }}
+          command: ["sh", "-c", "chown -R 33000:1000 {{ .Values.persistence.repository.data.mountPath }}"]
           volumeMounts:
           - name: data
             mountPath: {{ .Values.persistence.repository.data.mountPath }}
             subPath: {{ .Values.persistence.repository.data.subPath }}
-
       volumes:
       - name: data
         persistentVolumeClaim:
