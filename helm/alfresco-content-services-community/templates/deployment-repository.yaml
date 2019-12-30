@@ -57,7 +57,6 @@ spec:
             periodSeconds: {{ .Values.repository.livenessProbe.periodSeconds }}
             failureThreshold: 1
             timeoutSeconds: {{ .Values.repository.livenessProbe.timeoutSeconds }}
-      {{- if eq .Values.database.external false }}
       initContainers:
         - name: init-fs
           image: busybox
@@ -67,7 +66,6 @@ spec:
             - name: data
               mountPath: {{ .Values.persistence.repository.data.mountPath }}
               subPath: {{ .Values.persistence.repository.data.subPath }}
-      {{- end }}
       volumes:
       - name: data
         persistentVolumeClaim:
