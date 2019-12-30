@@ -71,14 +71,6 @@ spec:
             mountPath: {{ .Values.persistence.repository.data.mountPath }}
             subPath: {{ .Values.persistence.repository.data.subPath }}
 
-        # - name: init-fs
-        #   image: busybox
-        #   # command to allow repository to write to EFS volume.
-        #   command: ["sh", "-c", "chown -R 33000:1000 {{ .Values.persistence.repository.data.mountPath }}"]
-        #   volumeMounts:
-        #     - name: data
-        #       mountPath: {{ .Values.persistence.repository.data.mountPath }}
-        #       subPath: {{ .Values.persistence.repository.data.subPath }}
       volumes:
       - name: data
         persistentVolumeClaim:
