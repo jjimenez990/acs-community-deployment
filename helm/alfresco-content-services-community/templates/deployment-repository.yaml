@@ -60,12 +60,13 @@ spec:
       {{- if eq .Values.database.external false }}
       initContainers:
         - name: init-fs
-          image: alpine:3.6
+          image: busybox
+          # command to allow repository to write to EFS volume.
           command: ["sh", "-c", "chown -R 33000:1000 {{ .Values.persistence.repository.data.mountPath }}"]
           volumeMounts:
-          - name: data
-            mountPath: {{ .Values.persistence.repository.data.mountPath }}
-            subPath: {{ .Values.persistence.repository.data.subPath }}
+            - name: data
+              mountPath: {{ .Values.persistence.repository.data.mountPath }}
+              subPath: {{ .Values.persistence.repository.data.subPath }}
       volumes:
       - name: data
         persistentVolumeClaim:
