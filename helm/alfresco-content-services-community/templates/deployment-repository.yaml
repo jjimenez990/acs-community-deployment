@@ -67,6 +67,7 @@ spec:
             - name: data
               mountPath: {{ .Values.persistence.repository.data.mountPath }}
               subPath: {{ .Values.persistence.repository.data.subPath }}
+      {{- end }}
       volumes:
       - name: data
         persistentVolumeClaim:
