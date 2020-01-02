@@ -58,6 +58,12 @@ spec:
             failureThreshold: 1
             timeoutSeconds: {{ .Values.repository.livenessProbe.timeoutSeconds }}
       initContainers:
+        {{- if eq .Values.database.external false }}
+        # wait for the DB to startup before this deployment can start
+        - name: init-db
+          image: busybox
+          command: ['sh', '-c', 'until nc -w1 {{ printf "%s-%s" .Release.Name .Values.postgresql.nameOverride }} {{ .Values.postgresql.service.port }}; do echo "waiting for {{ printf "%s-%s" .Release.Name .Values.postgresql.nameOverride }}"; sleep 2; done;']
+        {{- end }}
         - name: init-fs
           image: busybox
           # command to allow repository to write to EFS volume.
