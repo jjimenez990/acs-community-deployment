@@ -30,7 +30,12 @@ repository:
       -Ddeployment.method=HELM_CHART
       -Dlocal.transform.service.enabled=true
       -Dlegacy.transform.service.enabled=true
-
+      -Dcors.enabled=true
+      -Dcors.allowed.origins=*
+      -Dcors.allowed.methods=GET,POST,HEAD,OPTIONS,PUT,DELETE
+      -Dcors.allowed.headers=Authorization,Content-Type,Cache-Control,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers,X-CSRF-Token
+      -Dcors.exposed.headers=Access-Control-Allow-Origin,Access-Control-Allow-Credentials
+      -Dcors.support.credentials=truecors.preflight.maxage=10
       -Xms2000M -Xmx2000M"
   resources:
     requests:
